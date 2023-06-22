@@ -4,6 +4,7 @@ export class PortfolioModel {
     constructor() {
         this.buttonsData = [];
         this.galleryData = [];
+        this.modalGalleryData= [];
         this.filters = [];
     }
 

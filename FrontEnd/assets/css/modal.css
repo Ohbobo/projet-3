@@ -2,7 +2,8 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
-
+    display: none;
+    z-index: 99;
 }
 .modal.active {
     display: block;
@@ -11,6 +12,12 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
+}
+.first-modal {
+    display: block;
+}
+.first-modal.active {
+    display: none;
 }
 .modal-content {
     position: absolute;
@@ -36,20 +43,17 @@
     background: transparent;
 }
 .modal-content__btn-back{
-    display: none;
     position: absolute;
     top: 30px;
     left: 36px;
 }
-.modal-content__btn-back.active{
-    display: block;
-}
+
 .modal-content__btn-close{
     position: absolute;
     top: 30px;
     right: 36px;
 }
-.modal-article-container {
+.modal-work-container {
     margin-top: 40px;
 	display: flex;
 	flex-wrap: wrap;
@@ -151,10 +155,17 @@
 }
 
 /* second modal */
+.second-modal {
+    display: none;
+}
+.second-modal.active {
+    display: block;
+}
 .modal-form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 40px;
 }
 .modal-form-image {
     display: flex;

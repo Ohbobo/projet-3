@@ -149,11 +149,12 @@ li {
 	line-height: 16px;
 	font-family: 'Work Sans';
 }
-
 .portfolio-header {
+	width: 400px;
+	position: relative;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 50px;
+	margin: 0 auto 50px;
 }
 .modif-content {
 	display: none;
@@ -163,8 +164,13 @@ li {
 	align-items: center;
 	gap: 6px;
 }
-.modif-content__span {
+.modif-content__span, .modif-content__icon {
 	cursor: pointer;
+}
+.portfolio-header-modif {
+	position: absolute;
+	top: 27%;
+	left: 77%;
 }
 .gallery {
 	margin: 0 auto;
