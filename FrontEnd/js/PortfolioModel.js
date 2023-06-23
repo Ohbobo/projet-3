@@ -1,4 +1,4 @@
-import { fetchCategories, fetchWorks } from "./api.js";
+import { fetchCategories, fetchWorks, deleteWorks } from "./api.js";
 
 export class PortfolioModel {
     constructor() {
@@ -26,9 +26,9 @@ export class PortfolioModel {
             console.error("Erreur lors de la récupération des données", error);
         }
     }
-    //filtrage
+    //filtrage des works
 
-    workFilter(categoryId){
+    worksFilter(categoryId){
         if (categoryId === 0) {
             this.filters = this.gallery
         } else {
@@ -36,6 +36,19 @@ export class PortfolioModel {
         }
     }
     //suppression
-
+    async deleteWorks(id) {
+        try {
+            await deleteWorks(id);
+            this.galleryData = this.galleryData.filter(item => item.id !== item.id);
+            this.filters = this.filters.filter(item => item.id !== item.id);
+        } catch (error) {
+            console.error("Une erreur s'est produite lors de la suppression:", error);
+        }
+    }
     //post
+    async addWorks(work) {
+        
+    }
+
+
 }

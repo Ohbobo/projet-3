@@ -35,6 +35,20 @@ export const fetchWorks = async () => {
 }
 
 // fetch delete
+export const deleteWorks = async () => {
+
+    try {
+        await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${user}`
+            }
+        });
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la suppression:", error);
+    }
+
+}
 
 // fetch post
 

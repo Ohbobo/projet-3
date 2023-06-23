@@ -1,15 +1,18 @@
+// s'occupe d'afficher la page html
 
 export class PortfolioView {
 
     constructor(model) {
-        this.model = model; // fait le lien avec PortfolioModel permettant d'acceder au constructor
+        this.model = model; // fait le lien avec PortfolioModelView permettant d'acceder au constructor
+        this.buttons = [] //
+        
         this.filtersContainer = document.querySelector('.filters-container');
+        this.filterButtons = document.querySelectorAll('.filters-container__btn');
         this.galleryContainer = document.querySelector('.gallery');
         this.modalWorkContainer = document.querySelector('.modal-work-container');
-        this.buttons = [] //
-        this.filtersContainer.addEventListener('click', this.handleFilterButtonClick.bind(this));
+        this.inputCategoriesModal = document.querySelector('.modal-form-info__select');
     }
-
+    //Affiche les boutons filtres
     displayFilterButtons() {
       const buttonsHTML = this.model.buttonsData;
       const button = buttonsHTML.map(btn => `
@@ -20,20 +23,22 @@ export class PortfolioView {
       this.buttons = Array.from(button);
     }
 
+    //Affiche la gallery
     displayWorksGallery() {
 
       const galleryHTML = this.model.filters.map(work => `
       <figure class="gallery-item" id="${work.id}">
         <img class="gallery-item__img" src="${work.imageUrl}" alt="${work.title}">
-        <p class="gallery-item__title">${work.title}</p>
+        <h3 class="gallery-item__title">${work.title}</h3>
       </figure>
     `).join(''); //renvoie les données de map en chaine de caractères
 
     this.galleryContainer.innerHTML = galleryHTML;
     }
 
+    //Affiche la galerie dans la modal
     displayModal() {
-
+      
       const modalContentHTML = this.model.filters.map(work => `
         <div class="modal-article">
           <img class="modal-article__img" src="${work.imageUrl}" alt="${work.title}">
@@ -43,14 +48,31 @@ export class PortfolioView {
       `).join('');
 
       this.modalWorkContainer.innerHTML = modalContentHTML;
+
+      // Ajout categories dans le formulaire depuis api
+      const inputCategoriesHTML = this.model.buttonsData.map(cat => `
+        <option value="${cat.name}">${cat.name}</option>
+      `).join('');
+      this.inputCategoriesModal.innerHTML = `<option value=""></option>` + inputCategoriesHTML;
     }
 
-    handleFilterButtonClick(event) {
+    updateData(){
+      this.displayFilterButtons();
+      this.displayWorksGallery();
+      this.displayModal();
+    }
 
-        const categoryId = parseInt(event.target.id);
-        this.model.workFilter(categoryId);
-        this.displayWorksGallery();
+    initListenerMethod() {
+      //filtre la galerie au click
+      this.filtersContainer.addEventListener('click', e => {
+        const categoryId = e.target.id;
+        if(categoryId) {
+          this.model.worksFilter(categoryId);
+          this.updateData();
+        }
+      })
 
     }
+
       
 }
